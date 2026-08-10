@@ -1,0 +1,4 @@
+{
+    "OneLineObject": { "X": 10, "Y": 20, "Width": 16, "Height": 16 },
+    "Another": { "A": 1, "B": 2 }
+}

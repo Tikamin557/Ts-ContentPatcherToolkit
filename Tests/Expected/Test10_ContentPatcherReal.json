@@ -1,0 +1,118 @@
+{
+    "Format":"2.7.0",
+
+    "ConfigSchema":{
+        "EnableThisMod":{
+            "AllowValues":"true,false",
+            "Default":"true"
+        },
+        "WarpDestination":{
+            "Default":"Farm"
+        }
+    },
+
+    "DynamicTokens":[
+        {
+            "Name":"Arrival Coordinate X",
+            "Value":"{{Range:10,20}}"
+        },
+        {
+            "Name":"Arrival Coordinate Y",
+            "Value":"{{Range:30,40}}"
+        },
+        {
+            "Name":"Greeting",
+            "Value":"{{Random:Hello,Welcome,Good Morning}}"
+        }
+    ],
+
+    "Changes":[
+        {
+            "Action":"EditMap",
+            "Target":"Maps/Custom_TestMap",
+            "MapTiles":[
+                {
+                    "Position":{"X":11,"Y":25},
+                    "Layer":"Buildings",
+                    "SetProperties":{
+                        "Action":"Warp {{Arrival Coordinate X}} {{Arrival Coordinate Y}} {{Config:WarpDestination}}"
+                    }
+                },
+                {
+                    "Position":{"X":12,"Y":25},
+                    "Layer":"Front",
+                    "SetTiles":[
+                        {
+                            "Position":{"X":12,"Y":25},
+                            "TileSheet":"z_Test",
+                            "Index":145
+                        },
+                        {
+                            "Position":{"X":13,"Y":25},
+                            "TileSheet":"z_Test",
+                            "Index":146
+                        }
+                    ]
+                }
+            ],
+            "When":{
+                "EnableThisMod":"true",
+                "HasMod":"Pathoschild.ContentPatcher",
+                "Language":"{{CurrentLanguage}}"
+            }
+        },
+
+        {
+            "Action":"EditData",
+            "Target":"Data/Objects",
+            "Entries":{
+                "Ts_TestObject":{
+                    "Name":"Ts_TestObject",
+                    "DisplayName":"{{i18n:object.name}}",
+                    "Description":"{{Greeting}}!",
+                    "Price":100,
+                    "Category":"-20"
+                }
+            },
+            "When":{
+                "EnableThisMod":"true"
+            }
+        },
+
+        {
+            "Action":"EditMap",
+            "Target":"Maps/FarmHouse",
+            "ToArea":{
+                "X":176,
+                "Y":96,
+                "Width":16,
+                "Height":16
+            },
+            "FromArea":{
+                "X":0,
+                "Y":0,
+                "Width":16,
+                "Height":16
+            },
+            "When":{
+                "HasFile":"assets/example.png"
+            }
+        },
+
+        /*
+        {
+        [
+        ]
+        }
+        */
+
+        {
+            // { } [] はコメントです。
+            "Action":"EditMap",
+            "Target":"Maps/Test",
+            "MapProperties":{
+                "TouchAction":"Message \"{{If:{{Season}}=winter,Cold!,Warm!}}\""
+            }
+        }
+    ]
+}

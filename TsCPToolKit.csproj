@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+
+		<!-- Internal application information -->
+		<AssemblyName>TsCPToolKit</AssemblyName>
+		<RootNamespace>TsCPToolKit</RootNamespace>
+
+		<!-- Application icon -->
+		<ApplicationIcon>Resources\TsCPToolKit.ico</ApplicationIcon>
+
+		<!-- User-facing application information -->
+		<Product>T's Content Patcher Toolkit</Product>
+		<Title>T's Content Patcher Toolkit</Title>
+
+		<Description>A toolkit for working with Content Patcher mod files.</Description>
+
+		<Version>1.1.0</Version>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
+
+		<Authors>Tikamin557</Authors>
+		<Company>Tikamin557</Company>
+
+		<Copyright>Copyright © Tikamin557 2026</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\TsCPToolKit.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Tests\Expected\" />
+		<Folder Include="Tests\Output\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\TsCPToolKit.png">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+
+</Project>

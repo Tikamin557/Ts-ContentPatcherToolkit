@@ -1,0 +1,13 @@
+﻿{
+    "Changes":[
+        {
+            "Action":"Load",
+            "Target":"Maps/spring_Dam_Cliff_Add_Mine,
+                      Maps/spring_Dam_Cliff_Morning,
+                      Maps/spring_Dam_Cliff_Noon,
+                      Maps/spring_Dam_Cliff_Noon_Rain,
+                      Maps/spring_Dam_RestArea",
+            "FromFile":"assets/png/{{TargetWithoutPath}}.png"
+        }
+    ]
+}

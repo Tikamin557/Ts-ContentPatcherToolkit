@@ -1,0 +1,465 @@
+﻿<Window x:Class="TsCPToolKit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource App_Name}"
+        Icon="/Resources/TsCPToolKit.png"
+        Width="900"
+        Height="620"
+        MinWidth="640"
+        MinHeight="460"
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing"
+        AllowDrop="True"
+        DragEnter="Window_DragEnter"
+        Drop="Window_Drop">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- タイトル -->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- アプリ名 -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,16,0"
+                Text="{DynamicResource App_Name}"
+                FontSize="22"
+                FontWeight="SemiBold"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center"/>
+
+            <!-- 言語 -->
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+
+                <TextBlock
+                    Margin="0,0,8,0"
+                    Text="{DynamicResource Language_Label}"
+                    VerticalAlignment="Center"/>
+
+                <ComboBox
+                    x:Name="LanguageComboBox"
+                    MinWidth="110"
+                    MinHeight="32"
+                    Padding="6,2"
+                    SelectionChanged="LanguageComboBox_SelectionChanged">
+
+                    <ComboBoxItem
+                        Tag="en"
+                        Content="{DynamicResource Language_English}"/>
+
+                    <ComboBoxItem
+                        Tag="ja"
+                        Content="{DynamicResource Language_Japanese}"/>
+
+                </ComboBox>
+
+				<Button
+                    x:Name="AboutUpdateButton"
+                    MinWidth="110"
+                    MinHeight="32"
+                    Margin="12,0,0,0"
+                    Padding="10,2"
+                    Content="{DynamicResource AboutUpdate_Button}"
+                    Click="AboutUpdateButton_Click"/>
+
+            </StackPanel>
+
+            <!-- 説明 -->
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,6,0,0"
+                Text="{DynamicResource Main_Description}"
+                Foreground="DimGray"
+                TextWrapping="Wrap"/>
+        </Grid>
+
+        <!-- 共通設定 -->
+        <Border
+            Grid.Row="2"
+            Padding="12"
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+            BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+            BorderThickness="1"
+            CornerRadius="4">
+
+            <WrapPanel
+                VerticalAlignment="Center">
+
+                <!-- インデント サイズ -->
+                <TextBlock
+                    Margin="0,4,0,4"
+                    Text="{DynamicResource Common_IndentSize}"
+                    VerticalAlignment="Center"/>
+
+                <ComboBox
+                    x:Name="IndentSizeComboBox"
+                    MinWidth="80"
+                    MinHeight="32"
+                    Margin="8,2,0,2"
+                    Padding="6,2"
+                    SelectedIndex="2">
+
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                    <ComboBoxItem Content="8"/>
+                </ComboBox>
+
+                <TextBlock
+                    Margin="8,4,24,4"
+                    Text="{DynamicResource Common_Spaces}"
+                    VerticalAlignment="Center"/>
+
+                <CheckBox
+                    x:Name="CreateBackupCheckBox"
+                    Margin="0,4,0,4"
+                    VerticalAlignment="Center"
+                    Content="{DynamicResource Common_CreateBackup}"
+                    IsChecked="True"/>
+
+            </WrapPanel>
+        </Border>
+
+        <!-- 各機能 -->
+        <TabControl
+            Grid.Row="4"
+            Padding="2">
+
+            <!-- ====================================================== -->
+            <!-- 単一JSON -->
+            <!-- ====================================================== -->
+
+            <TabItem Header="{DynamicResource Single_Tab}">
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="{DynamicResource Single_Description}"
+                            Foreground="DimGray"
+                            TextWrapping="Wrap"/>
+
+                        <!-- ファイル選択 -->
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                                x:Name="FilePathTextBox"
+                                Grid.Column="0"
+                                MinHeight="36"
+                                Padding="8,5"
+                                VerticalContentAlignment="Center"
+                                IsReadOnly="True"
+                                ToolTip="{DynamicResource Single_FileToolTip}"/>
+
+                            <Button
+                                x:Name="BrowseButton"
+                                Grid.Column="2"
+                                MinWidth="100"
+                                MinHeight="36"
+                                Padding="12,4"
+                                Content="{DynamicResource Common_Browse}"
+                                Click="BrowseButton_Click"/>
+                        </Grid>
+
+                        <!-- 実行 -->
+						<WrapPanel
+							Grid.Row="4">
+
+							<Button
+								x:Name="ProcessButton"
+								MinWidth="180"
+								MinHeight="42"
+								Margin="0,0,12,8"
+								Padding="14,6"
+								Content="{DynamicResource Single_ProcessButton}"
+								FontWeight="SemiBold"
+								Click="ProcessButton_Click"/>
+
+							<Button
+								x:Name="OpenSingleFolderButton"
+								MinWidth="170"
+								MinHeight="42"
+								Margin="0,0,12,8"
+								Padding="14,6"
+								Content="{DynamicResource Single_OpenFolderButton}"
+								Click="OpenSingleFolderButton_Click"/>
+
+						</WrapPanel>
+
+                        <!-- 状態 -->
+                        <Border
+                            Grid.Row="6"
+                            Padding="12"
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                            BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+
+                            <TextBlock
+                                x:Name="StatusTextBlock"
+                                Text="{DynamicResource Single_InitialStatus}"
+                                TextWrapping="Wrap"/>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ====================================================== -->
+            <!-- フォルダ一括 -->
+            <!-- ====================================================== -->
+
+            <TabItem Header="{DynamicResource Batch_Tab}">
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled">
+
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="14"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="{DynamicResource Batch_Description}"
+                            Foreground="DimGray"
+                            TextWrapping="Wrap"/>
+
+                        <!-- フォルダ選択 -->
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox
+                                x:Name="BatchFolderPathTextBox"
+                                Grid.Column="0"
+                                MinHeight="36"
+                                Padding="8,5"
+                                VerticalContentAlignment="Center"
+                                IsReadOnly="True"
+                                ToolTip="{DynamicResource Batch_FolderToolTip}"/>
+
+                            <Button
+                                x:Name="BrowseBatchFolderButton"
+                                Grid.Column="2"
+                                MinWidth="100"
+                                MinHeight="36"
+                                Padding="12,4"
+                                Content="{DynamicResource Common_Browse}"
+                                Click="BrowseBatchFolderButton_Click"/>
+                        </Grid>
+
+                        <!-- サブフォルダ -->
+                        <CheckBox
+                            x:Name="IncludeSubfoldersCheckBox"
+                            Grid.Row="4"
+                            Content="{DynamicResource Batch_IncludeSubfolders}"
+                            IsChecked="True"/>
+
+                        <!-- 実行 -->
+						<WrapPanel
+							Grid.Row="6">
+
+							<Button
+								x:Name="ProcessFolderButton"
+								MinWidth="240"
+								MinHeight="42"
+								Margin="0,0,12,8"
+								Padding="14,6"
+								Content="{DynamicResource Batch_ProcessButton}"
+								FontWeight="SemiBold"
+								Click="ProcessFolderButton_Click"/>
+
+							<Button
+								x:Name="OpenBatchFolderButton"
+								MinWidth="170"
+								MinHeight="42"
+								Margin="0,0,12,8"
+								Padding="14,6"
+								Content="{DynamicResource Batch_OpenFolderButton}"
+								Click="OpenBatchFolderButton_Click"/>
+
+						</WrapPanel>
+
+                        <!-- 結果 -->
+                        <Border
+                            Grid.Row="8"
+                            Padding="12"
+                            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                            BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+
+                            <ScrollViewer
+                                MaxHeight="220"
+                                VerticalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Auto">
+
+                                <TextBlock
+                                    x:Name="BatchStatusTextBlock"
+                                    Text="{DynamicResource Batch_InitialStatus}"
+                                    TextWrapping="Wrap"/>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ====================================================== -->
+            <!-- テスト -->
+            <!-- ====================================================== -->
+
+            <TabItem Header="{DynamicResource Test_Tab}">
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="{DynamicResource Test_Description}"
+                        Foreground="DimGray"
+                        TextWrapping="Wrap"/>
+
+                    <!-- Testsフォルダ -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox
+                            x:Name="TestsFolderPathTextBox"
+                            Grid.Column="0"
+                            MinHeight="36"
+                            Padding="8,5"
+                            VerticalContentAlignment="Center"
+                            IsReadOnly="True"
+                            ToolTip="{DynamicResource Test_FolderToolTip}"/>
+
+                        <Button
+                            x:Name="BrowseTestsFolderButton"
+                            Grid.Column="2"
+                            MinWidth="100"
+                            MinHeight="36"
+                            Padding="12,4"
+                            Content="{DynamicResource Common_Browse}"
+                            Click="BrowseTestsFolderButton_Click"/>
+                    </Grid>
+
+                    <!-- テスト操作 -->
+                    <WrapPanel
+                        Grid.Row="4">
+
+                        <Button
+                            x:Name="RunTestsButton"
+                            MinWidth="140"
+                            MinHeight="40"
+                            Margin="0,0,12,8"
+                            Padding="14,6"
+                            Content="{DynamicResource Test_RunButton}"
+                            FontWeight="SemiBold"
+                            Click="RunTestsButton_Click"/>
+
+                        <Button
+                            x:Name="UpdateExpectedButton"
+                            MinWidth="210"
+                            MinHeight="40"
+                            Margin="0,0,12,8"
+                            Padding="14,6"
+                            Content="{DynamicResource Test_UpdateExpectedButton}"
+                            Click="UpdateExpectedButton_Click"/>
+
+						<Button
+                            x:Name="OpenTestsFolderButton"
+                            MinWidth="170"
+                            MinHeight="40"
+                            Margin="0,0,12,8"
+                            Padding="14,6"
+                            Content="{DynamicResource Test_OpenFolderButton}"
+                            Click="OpenTestsFolderButton_Click"/>
+
+                    </WrapPanel>
+
+                    <!-- テスト結果 -->
+                    <GroupBox
+                        Grid.Row="6"
+                        Header="{DynamicResource Test_ResultHeader}"
+                        Padding="8"
+                        MinHeight="150">
+
+                        <TextBox
+                            x:Name="TestResultsTextBox"
+                            Padding="10"
+                            IsReadOnly="True"
+                            AcceptsReturn="True"
+                            AcceptsTab="True"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Auto"
+                            TextWrapping="NoWrap"
+                            FontFamily="Consolas"
+                            Text="{DynamicResource Test_InitialStatus}"/>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>
